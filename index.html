@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ID Finder - Facebook & Instagram</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>ID Finder</h1>
+    <p>Ingresa el usuario de Facebook o Instagram para obtener su ID numérica pública.</p>
+
+    <select id="platform">
+      <option value="facebook">Facebook</option>
+      <option value="instagram">Instagram</option>
+    </select>
+
+    <input type="text" id="username" placeholder="usuario o URL" />
+    <button id="search">Buscar ID</button>
+
+    <pre id="result"></pre>
+  </div>
+
+  <script>
+    document.getElementById("search").addEventListener("click", async () => {
+      const username = document.getElementById("username").value.trim();
+      const platform = document.getElementById("platform").value;
+      const resultBox = document.getElementById("result");
+      resultBox.textContent = "Buscando...";
+
+      if (!username) return alert("Por favor ingresa un usuario.");
+
+      try {
+        const endpoint = `/api/${platform === "facebook" ? "fb-id-scrape" : "ig-id"}?username=${encodeURIComponent(username)}`;
+        const resp = await fetch(endpoint);
+        const data = await resp.json();
+
+        if (resp.ok) {
+          resultBox.textContent = `🆔 ID: ${data.id}\nOrigen: ${data.source}`;
+        } else {
+          resultBox.textContent = `❌ Error: ${data.error}`;
+        }
+      } catch (err) {
+        resultBox.textContent = `⚠️ Error: ${err.message}`;
+      }
+    });
+  </script>
+</body>
+</html>
