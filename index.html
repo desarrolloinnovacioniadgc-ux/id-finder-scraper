@@ -24,7 +24,13 @@
 
   <script>
     document.getElementById("search").addEventListener("click", async () => {
-      const username = document.getElementById("username").value.trim();
+      let username = document.getElementById("username").value.trim();
+// Si el usuario pega una URL completa, extraer solo el nombre
+username = username
+  .replace(/^https?:\/\/(www\.)?(m\.|mbasic\.)?facebook\.com\//, '')
+  .replace(/^https?:\/\/(www\.)?instagram\.com\//, '')
+  .replace(/\/$/, '')
+  .split(/[/?#]/)[0];
       const platform = document.getElementById("platform").value;
       const resultBox = document.getElementById("result");
       resultBox.textContent = "Buscando...";
@@ -48,3 +54,4 @@
   </script>
 </body>
 </html>
+
