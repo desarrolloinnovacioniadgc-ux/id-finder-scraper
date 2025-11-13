@@ -1,0 +1,16 @@
+{
+  "name": "id-finder-scraper",
+  "version": "1.0.0",
+  "description": "Buscador de ID de perfiles públicos de Facebook e Instagram sin token.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "node-fetch": "^2.6.9"
+  }
+}
